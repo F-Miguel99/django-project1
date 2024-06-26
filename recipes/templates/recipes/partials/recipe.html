@@ -1,12 +1,5 @@
 <div class="recipe recipe-list-item">
-    <!--<div class="recipe-cover">-->
-        <!--<img src="https://via.placeholder.com/1280x720.png/269fe6" alt="Temporário">-->
-        <!--<img src="{{ recipe.cover.url }}" alt="Temporário">-->
-     <!--   <a href="{% url 'recipes:recipe' recipe.id %}"> -->
-     <!--       <img src="{{ recipe.cover.url }}" alt="Temporário">
-        </a>
-    </div>
-    <h1>Oi</h1> -->
+   
     {% if recipe.cover %}
         <div class="recipe-cover">
             <a href="{% url 'recipes:recipe' recipe.id %}">
@@ -27,28 +20,33 @@
 
     <div class="recipe-author">
         <span class="recipe-author-item">
-            <i class="fas fa-user"></i>
-            <!-- Filipe Miguel -->
-           <!-- {{ recipe.author.first_name }} {{ recipe.author.last_name }}
-        </span>-->
+           
+       
+            
+            <!-- 16/10/2021 às 11:21-->
+            
+        </span> 
+        {% if recipe.author is not None %}
+            <span class="recipe-author-item">
+                <i class="fas fa-user"></i>
+                {% if recipe.author.first_name %}
+                    {{ recipe.author.first_name }} {{ recipe.author.last_name }}
+                {% else %}
+                    {{ recipe.author.username }}
+                {% endif %}
+            </span>
+        {% endif %}
         <span class="recipe-author-item">
             <i class="fas fa-calendar-alt"></i>
-            <!-- 16/10/2021 às 11:21-->
             {{ recipe.created_at|date:"d/m/Y" }} às {{ recipe.created_at|date:"H:i" }}
-        </span>
-            {% if recipe.author.first_name %}
-                {{ recipe.author.first_name }} {{ recipe.author.last_name }}
-            {% else %}
-                {{ recipe.author.username }}
-            {% endif %}
-        <span class="recipe-author-item">
-            <!--<a href="/recipes/category/cafe-da-manha/">-->
+        {% if recipe.category is not None %}
+            <span class="recipe-author-item">
                 <a href="{% url 'recipes:category' recipe.category.id %}">
-                <i class="fas fa-layer-group"></i>
-                <!-- <span>Café da manhã</span>-->
-                <span>{{ recipe.category.name }}</span>
-            </a>
-        </span>
+                    <i class="fas fa-layer-group"></i>
+                    <span>{{ recipe.category.name }}</span>
+                </a>
+            </span>
+        {% endif %}
     </div>
 
     <div class="recipe-content">
